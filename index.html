@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Form Builder</title>
+ 
+</head>
+<body>
+
+
+<div class="builder">
+  <h2>Form Builder</h2>
+
+  <label>Field Label</label>
+  <input type="text" id="labelInput">
+
+  <label>Field Type</label>
+  <select id="typeInput">
+    <option value="text">Text</option>
+    <option value="email">Email</option>
+    <option value="number">Number</option>
+    <option value="textarea">Textarea</option>
+    <option value="checkbox">Checkbox</option>
+  </select>
+
+  <label>
+    <input type="checkbox" id="requiredInput"> Required
+  </label>
+
+  <button onclick="addField()">Add Field</button>
+</div>
+
+
+<div class="preview">
+  <h2>Form Preview</h2>
+  <form id="formPreview"></form>
+</div>
+
+<script>
+  const formPreview = document.getElementById("formPreview");
+
+  function addField() {
+    const labelText = document.getElementById("labelInput").value;
+    const type = document.getElementById("typeInput").value;
+    const required = document.getElementById("requiredInput").checked;
+
+
+    if (!labelText) {
+      alert("Label and Type are required");
+      return;
+    }
+
+    const fieldWrapper = document.createElement("div");
+    fieldWrapper.className = "field";
+
+    const label = document.createElement("label");
+    label.innerText = labelText;
+
+    let input;
+    if (type === "textarea") {
+      input = document.createElement("textarea");
+    } else {
+      input = document.createElement("input");
+      input.type = type;
+    }
+
+    if (required) input.required = true;
+
+    fieldWrapper.appendChild(label);
+    fieldWrapper.appendChild(input);
+    formPreview.appendChild(fieldWrapper);
+
+   
+    document.getElementById("labelInput").value = "";
+    document.getElementById("requiredInput").checked = false;
+  }
+</script>
+
+</body>
+</html>
